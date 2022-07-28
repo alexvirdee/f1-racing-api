@@ -8,16 +8,6 @@ const port = process.env.PORT || 3001;
 
 const f1key = process.env.F1_API_KEY;
 
-// GET request for remote image in node.js
-// axios({
-//     method: 'get',
-//     url: 'http://bit.ly/2mTM3nY',
-//     responseType: 'stream'
-//   })
-//     .then(function (response) {
-//       response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
-//     });
-
 app.get('/', async (req, res, next) => {
   try {
     // Craft sport radar API URL
