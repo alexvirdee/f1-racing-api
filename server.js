@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 const app = express();
 
 require('dotenv').config();
@@ -8,7 +9,14 @@ const port = process.env.PORT || 3001;
 
 const f1key = process.env.F1_API_KEY;
 
-app.get('/', async (req, res, next) => {
+app.use(cors());
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
+app.get('/api', async (req, res, next) => {
   try {
     // Craft sport radar API URL
     const url = `https://api.sportradar.us/formula1/trial/v2/en/competitors/sr:competitor:7135/profile.json?api_key=${f1key}`;
@@ -24,11 +32,6 @@ app.get('/', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-});
-
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
 });
 
 app.listen(port, () => console.log(`http://localhost:${port}`));
